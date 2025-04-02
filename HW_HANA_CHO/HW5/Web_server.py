@@ -9,11 +9,11 @@ while True:
     
     data = c.recv(1024)
     msg = data.decode()
-    req = msg.split('\r\n') #'GET /index.html HTTP/1.1', '...', '...'
+    req = msg.split('\r\n') 
 
-    filename = req[0].split() #'GET', '/index.html', 'HTTP/1.1'
-    filename = filename[1]  #'/index.html'
-    filename = filename.strip('/') #'index.html'
+    filename = req[0].split() 
+    filename = filename[1]  
+    filename = filename.strip('/') 
 
     try:
         if filename == 'index.html':
@@ -31,12 +31,12 @@ while True:
 
         if 'text' in mimeType:
             data = f.read()
-            c.send(data.encode('euc-kr'))  #euc-kr 이거로 하면 깨짐
+            c.send(data.encode('euc-kr')) 
         else:
             data = f.read()
             c.send(data)
 
-    except: #예외처리
+    except: 
         response_msg = 'HTTP/1.1 404 Not Found\r\n\r\n<HTML><HEAD><TITLE>Not Found</TITLE></HEAD><BODY>Not Found</BODY></HTML>'
         c.send(response_msg.encode())
     
